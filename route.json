@@ -1,0 +1,25 @@
+{
+  "route":
+    {
+      "/index":"controller.index.index",
+      "/login":"controller.index.login",
+      "/signup":"controller.index.signup",
+      "/signup_page":"controller.index.signup_page",
+      "/logout":"controller.index.logout",
+      "/target/add":"controller.target.add_target",
+      "/target/search":"controller.target.search_target",
+      "/mark/mark_target":"controller.mark.mark",
+      "/mark/search":"controller.mark.search_mark",
+
+      "/wechat/target/dict":"controller.wechat.wechat_target_type",
+      "/wechat/target/search":"controller.wechat.wechat_target_search",
+      "/wechat/target/detail":"controller.wechat.wechat_target_detail",
+      "/wechat/target/add":"controller.wechat.wechat_target_add",
+      "/wechat/mark/mark":"controller.wechat.wechat_mark",
+      "/wechat/mark/search":"controller.wechat.wechat_mark_search",
+      "/wechat/user/login":"controller.wechat.wechat_login",
+      "/wechat/user/detail":"controller.wechat.wechat_user_info"
+
+    }
+
+}

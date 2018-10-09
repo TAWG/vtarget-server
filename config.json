@@ -1,0 +1,39 @@
+{
+  "redis":{
+
+    "host":"127.0.0.1",
+    "port":6379,
+    "needPass":true,
+    "username":"",
+    "passwd":"",
+    "timeout":3000
+  },
+
+
+  "db":{
+    "creator":"pymysql",
+    "host":"127.0.0.1",
+    "port":"3306",
+    "password":"123456",
+    "username":"root",
+    "db":"vtarget"
+  },
+
+  "worker":{
+    "threadCount":5,
+    "coroutineCount":20
+  },
+
+  "app":{
+    "maxTarget" : 5,
+    "logLevel": "INFO",
+    "logName" : "vtarget",
+    "logPath" : "./"
+  },
+
+  "wechat":{
+    "appId":"wxc2392ea284736fb4",
+    "appSecret":"e2dac1ff13657089edcde0d639720f3d",
+    "nameSpace":"stxl117.top"
+  }
+}

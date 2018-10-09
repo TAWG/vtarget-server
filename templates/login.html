@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/index.css">
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3 class="text-center">
+				微目标，从这一刻开始
+			</h3>
+			<div class="row-fluid">
+
+				<div class="span">
+					<form class="form-horizontal" action="/login" method="post">
+						<div class="control-group">
+							<label class="control-label" for="username">账户</label>
+							<div class="controls">
+								<input id="username" type="text" name="username"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="passwd">密码</label>
+							<div class="controls">
+								<input id="passwd" type="password" name="passwd" />
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+                                <button class="btn" type="submit">登陆</button>
+                                <button type="button" onclick="window.location.href='/signup_page'" class="btn">注册</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function plusReady(){  
+	alert( "uuid: "+plus.device.uuid );  
+	}  
+	if(window.plus){  
+	plusReady();  
+	}else{  
+	document.addEventListener("plusready",plusReady,false); 
+	 } 
+</script>
+</body>
+</html>

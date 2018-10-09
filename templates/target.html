@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="row-fluid">
+				<div class="span12">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									编号
+								</th>
+								<th>
+                                    微目标类型
+								</th>
+								<th>
+									微目标内容
+								</th>
+								<th>
+									数量
+								</th>
+                                <th>
+                                    打卡
+                                </th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for target in targets %}
+                            <tr>
+                                <td>{{target['id']}}</td>
+                                <td>{{target['targetType']}}</td>
+                                <td>{{target['targetContent']}}</td>
+                                <td>{{target['targetCount']}}</td>
+                                <td><button type="button" class="btn" onclick="mark({{target['id']}})">打卡</button></td>
+                            </tr>
+                           {% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="../static/js/jquery.js"></script>
+<script type="text/javascript">
+   function mark(tid){
+        $.ajax({
+               type: "POST",
+               url: "/mark/mark_target",
+               data: "tid=" + tid,
+               async: false,
+               success : function(data){
+                data = JSON.parse(data);
+                alert(data['reason']);
+
+               }
+            });
+   }
+</script>
+
+</body>
+</html>
