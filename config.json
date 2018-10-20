@@ -1,6 +1,5 @@
 {
   "redis":{
-
     "host":"127.0.0.1",
     "port":6379,
     "needPass":true,
@@ -8,7 +7,6 @@
     "passwd":"",
     "timeout":3000
   },
-
 
   "db":{
     "creator":"pymysql",
@@ -19,16 +17,12 @@
     "db":"vtarget"
   },
 
-  "worker":{
-    "threadCount":5,
-    "coroutineCount":20
-  },
-
   "app":{
     "maxTarget" : 5,
     "logLevel": "INFO",
     "logName" : "vtarget",
-    "logPath" : "./"
+    "logPath" : "./",
+    "port": 8001
   },
 
   "wechat":{

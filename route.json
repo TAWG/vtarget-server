@@ -1,6 +1,7 @@
 {
   "route":
     {
+      "/":"controller.index.index",
       "/index":"controller.index.index",
       "/login":"controller.index.login",
       "/signup":"controller.index.signup",

@@ -17,6 +17,7 @@ from datetime import timedelta
 from exception.biz_exception import BizExcepition
 from common.common import config
 
+
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)

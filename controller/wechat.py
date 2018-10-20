@@ -48,10 +48,12 @@ def wechat_target_detail(**form):
     target = targetService.get_target(form['id'])
     return target
 
+
 @session_check
 @json_result_warrper
 def wechat_target_add(**form):
     targetService.add_target(form)
+
 
 @json_result_warrper
 def wechat_target_type():

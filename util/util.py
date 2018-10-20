@@ -14,7 +14,7 @@ prefix = 'vt_'
 
 def generate_account():
     """
-    账户生成方法
+    账号生成方法
     :return:
     """
     uid = str(uuid.uuid3(uuid.NAMESPACE_DNS, wechat_config['nameSpace']))
