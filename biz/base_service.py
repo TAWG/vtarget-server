@@ -25,3 +25,29 @@ class BaseService:
         if page_no > 1:
             start_index = (page_no - 1) * page_size
         return start_index
+
+    def query_page(self, sql, page_size, start_index, processor):
+        """
+        统一分页处理
+        :param sql: 执行的sql语句
+        :param page_size: 每页大小
+        :param start_index: 起始index
+        :param processor: 返回值解析方法(func)
+        :return:
+        """
+        total = self.query_count(sql)
+        datas = list()
+        if total > 0:
+            sql += ' limit %s,%s' % (start_index, page_size)
+            datas = self.db_pool.execute_query_sql(sql, processor)
+        return {"total": total, "data": datas}
+
+    def query_count(self, sql):
+        """
+        获取数量
+        :param sql:
+        :return:
+        """
+        start_index = sql.find("from")
+        sql = "select count(1) %s" % sql[start_index:]
+        return self.db_pool.execute_query_sql(sql, self.parse_count)

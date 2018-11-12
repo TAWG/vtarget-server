@@ -7,7 +7,7 @@
 __author__ = 'sky'
 
 from biz.base_service import BaseService
-from util.util import generate_account
+from util.util import generate_account,str_sign
 from exception.biz_exception import BizExcepition
 
 
@@ -21,8 +21,9 @@ class UserService(BaseService):
     def signin(self, username, passwd):
         result = {'code': 200, 'reason': 'success'}
         user = self.get_user(username)
+        passwd = str_sign(passwd)
         if user is None:
-            raise BizExcepition(404,'用户不存在')
+            raise BizExcepition(404, '用户不存在')
         if passwd != user['passwd']:
             raise BizExcepition(500, '用户名或密码错误')
         else:
@@ -33,6 +34,7 @@ class UserService(BaseService):
         user = self.get_user(account)
         if user is not None:
             raise BizExcepition(500, "用户已存在")
+        passwd = str_sign(passwd)
         self.db_pool.execute_insert_sql(self.insert_user_sql % (account, username, passwd))
 
     def wechat_signup(self, openId):
@@ -59,7 +61,7 @@ class UserService(BaseService):
         users = self.db_pool.execute_query_sql(sql % id, self.__parse_user)
         if isinstance(users, list) and len(users) > 0:
             user = users[0]
-            user['passwd'] = ''
+            del user['passwd']
             return users[0]
         return None
 

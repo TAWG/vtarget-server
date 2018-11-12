@@ -130,6 +130,16 @@ def session_check(func):
 
     return wrapper
 
+def check_back_session(func):
+    @functools.wraps(func)
+    def wrapper():
+        if 'bid' not in flask.session:
+           return json.dumps({'code': 401, 'reason': '未登录'})
+        form = flask.request.values.to_dict()
+        form['bid'] = flask.session['bid']
+        return func(**form)
+
+    return wrapper
 
 if __name__ == '__main__':
     config_log()
