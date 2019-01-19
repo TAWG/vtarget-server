@@ -54,6 +54,7 @@ def config_log():
     handler.setFormatter(logging_format)
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
+    return logger
 
 
 def route_parse(routes):
