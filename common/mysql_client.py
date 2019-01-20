@@ -26,6 +26,7 @@ def set_local(self, conn):
 def del_local(self):
     del self.local.conn
 
+
 def transcation(fun, **kargs):
     """
     数据库事务装饰器 v1.0
@@ -33,6 +34,7 @@ def transcation(fun, **kargs):
     :param kargs:
     :return:
     """
+
     def wrapper(*args, **kw):
         callback = kargs.get("callback", Exception)
         require = kargs.get("require", TranscationManager.REQUIRE)
@@ -92,6 +94,8 @@ class ConnectPool:
         return self.pool.connection()
 
     def execute_query_sql(self, sql, process):
+        conn = None
+        cur = None
         try:
             conn = self.get_conn()
             cur = conn.cursor()
@@ -103,14 +107,20 @@ class ConnectPool:
             logger.error("sql error :%s" % e)
             raise BizExcepition(500, "DB Error")
         finally:
-            cur.close()
+            if cur is not None:
+                cur.close()
 
     @transcation
     def execute_sql(self, sql):
-        conn = self.get_conn()
-        cur = conn.cursor()
-        logger.info("execute sql : %s" % sql)
-        cur.execute(sql)
+        try:
+            conn = self.get_conn()
+            cur = conn.cursor()
+            logger.info("execute sql : %s" % sql)
+            cur.execute(sql)
+        finally:
+            if cur is not None:
+                cur.close()
+
 
     def execute_insert_sql(self, sql):
         conn = self.get_conn()
@@ -136,12 +146,9 @@ class TranscationManager:
     REQUIRE = 1
     NOT_SUPPORT = 2
 
-
-
     def __init__(self, data_source):
         if isinstance(data_source, ConnectPool):
             self.data_source = data_source
-
 
     def create_transcation(self):
         return self.data_source.get_conn()
