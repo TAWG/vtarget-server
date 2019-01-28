@@ -8,6 +8,7 @@ __author__ = 'sky'
 
 from biz.base_service import BaseService
 from exception.biz_exception import BizExcepition
+from common.transcation import transcation
 
 
 class TargetService(BaseService):
@@ -17,6 +18,7 @@ class TargetService(BaseService):
     query_page_sql = 'select * from t_user_target where u_id = %s limit %s,%s'
     query_target_sql = 'select * from t_user_target where id = %s'
 
+    @transcation()
     def get_targets(self, uid, page_no=1, page_size=5):
         """
         分页获取用户微目标

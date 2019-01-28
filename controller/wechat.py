@@ -35,7 +35,7 @@ def wechat_mark_search(**form):
     return marks
 
 
-@session_check
+#@session_check
 @json_result_warrper
 def wechat_target_search(**form):
     targets = targetService.get_targets(form['uid'], 1, 5)
