@@ -6,7 +6,8 @@
 """
 __author__ = 'sky'
 
-from common.mysql_client import ConnectPool, get_local, db_pool
+from common.mysql_client import ConnectPool, db_pool
+from common.local_cache import localCache
 
 
 class TranscationManager:
@@ -26,7 +27,7 @@ class TranscationManager:
         return self.data_source.get_conn()
 
     def commit_transcation(self):
-        conn = get_local()
+        conn = localCache.get("conn")
         if conn is not None:
             try:
                 conn.commit()
@@ -39,7 +40,7 @@ class TranscationManager:
             raise TypeError
 
     def rollback_transcation(self):
-        conn = get_local()
+        conn = localCache.get("conn")
         if conn is not None:
             try:
                 conn.rollback()

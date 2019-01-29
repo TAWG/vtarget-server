@@ -7,16 +7,17 @@
 __author__ = 'sky'
 
 from threading import local
+from gevent.local import local as g_local
 
 
-class ThreadLocal():
-    local_data = local()
-
-    def __init__(self):
-        self.local_data = local()
+class BaseLocal:
+    """
+        缓存基础类
+    """
+    __slots__ = ["local_data"]
 
     def get(self, key):
-        if hasattr(self.local_data,key):
+        if hasattr(self.local_data, key):
             return self.local_data.__getattribute__(key)
         return None
 
@@ -26,4 +27,25 @@ class ThreadLocal():
     def delete(self, key):
         self.local_data.__delattr__(key)
 
-threadLocal = ThreadLocal()
+
+class ThreadLocal(BaseLocal):
+    """
+    线程安全缓存
+    """
+    __slots__ = ["local_data"]
+
+    def __init__(self):
+        self.local_data = local()
+
+
+class CoroutineLocal(BaseLocal):
+    """
+    协程安全缓存
+    """
+    __slots__ = ["local_data"]
+
+    def __init__(self):
+        self.local_data = g_local()
+
+
+localCache = CoroutineLocal()

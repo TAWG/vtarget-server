@@ -10,7 +10,8 @@ import DBUtils.PooledDB as dbUtil
 from common.common import config
 from app import logger
 from exception.biz_exception import BizExcepition
-
+from common.local_cache import localCache
+from common.constants import cache_conn_key
 
 class ConnectPool:
     """
@@ -30,7 +31,9 @@ class ConnectPool:
                                     user=self.username, password=self.passwd, db=self.db)
 
     def get_conn(self):
-        return self.pool.connection()
+        if localCache.get(cache_conn_key) is None:
+            return self.pool.connection()
+        return localCache.get(cache_conn_key)
 
     def execute_query_sql(self, sql, process):
         try:

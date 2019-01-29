@@ -7,10 +7,9 @@
 __author__ = 'sky'
 
 from common.transcation_manager import TranscationManager, transcation_manager
-from common.local_cache import threadLocal
+from common.local_cache import localCache
+from common.constants import cache_conn_key
 from exception.biz_exception import BizExcepition
-
-key = "conn"
 
 
 def transcation(callback=Exception, required=transcation_manager.REQUIRE):
@@ -20,32 +19,32 @@ def transcation(callback=Exception, required=transcation_manager.REQUIRE):
     :param kargs:
     :return:
     """
-
     def wrapper(func):
         def inner_wrapper(*args, **kwargs):
             cur_transcation = None
             old_transcation = None
             is_first = True
             if required == TranscationManager.NOT_SUPPORT:
-                if transcation_manager.get_lcoal() is not None:
+                if localCache.get_lcoal(cache_conn_key) is not None:
                     raise BizExcepition(9001, 'trancation error , %s not support transcation' % func.__name__)
                 cur_transcation = transcation_manager.create_transcation()
             if required == TranscationManager.NEW:
                 cur_transcation = transcation_manager.create_transcation()
-                if threadLocal.get(key) is not None:
-                    old_transcation = threadLocal.get(key)
+                if localCache.get(cache_conn_key) is not None:
+                    old_transcation = localCache.get(cache_conn_key)
 
             if required == TranscationManager.REQUIRE:
-                if threadLocal.get(key) is not None:
+                if localCache.get(cache_conn_key) is not None:
                     is_first = False
-                    cur_transcation = threadLocal.get(key)
+                    cur_transcation = localCache.get(cache_conn_key)
                 else:
                     cur_transcation = transcation_manager.create_transcation()
             try:
-                threadLocal.set(key, cur_transcation)
+                localCache.set(cache_conn_key, cur_transcation)
                 result = func(*args, **kwargs)
                 if is_first:
                     transcation_manager.commit_transcation()
+                return result
             except Exception as e:
                 if callback in type(e).__bases__:
                     transcation_manager.rollback_transcation()
@@ -54,10 +53,9 @@ def transcation(callback=Exception, required=transcation_manager.REQUIRE):
                 raise e
             finally:
                 if required == TranscationManager.NEW and old_transcation is not None:
-                    threadLocal.sey(key, old_transcation)
+                    localCache.set(cache_conn_key, old_transcation)
                 if is_first:
-                    threadLocal.delete(key)
-                return result
+                    localCache.delete(cache_conn_key)
 
         return inner_wrapper
 

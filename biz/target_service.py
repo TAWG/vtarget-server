@@ -30,6 +30,7 @@ class TargetService(BaseService):
         start_index = self.page_helper(page_no, page_size)
         targets = self.db_pool.execute_query_sql(self.query_page_sql % (uid, start_index, page_size),
                                                  self.__parse_target)
+
         return targets
 
     def add_target(self, target_info):
