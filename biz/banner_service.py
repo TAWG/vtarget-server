@@ -7,9 +7,13 @@
 __author__ = 'sky'
 
 from biz.base_service import BaseService
-from exception import biz_exception
+
 
 class BannerService(BaseService):
+    """
+
+    """
+
     def query_banner(self, page_no=1, page_size=5):
         """
         wait
@@ -27,3 +31,6 @@ class BannerService(BaseService):
 
     def delete_banner(self, b_id):
         pass
+
+
+banner_service = BannerService()

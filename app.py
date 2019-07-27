@@ -17,7 +17,6 @@ from datetime import timedelta
 from exception.biz_exception import BizExcepition
 from common.common import config
 
-
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
@@ -109,6 +108,7 @@ def json_result_warrper(func):
             res['code'] = 500
             res['reason'] = '服务器开小差了'
             logger.error("request %s error %s" % (url, e))
+            logger.error(e.with_traceback(""))
         return json.dumps(res)
 
     return wrapper
@@ -131,16 +131,18 @@ def session_check(func):
 
     return wrapper
 
+
 def check_back_session(func):
     @functools.wraps(func)
     def wrapper():
         if 'bid' not in flask.session:
-           return json.dumps({'code': 401, 'reason': '未登录'})
+            return json.dumps({'code': 401, 'reason': '未登录'})
         form = flask.request.values.to_dict()
         form['bid'] = flask.session['bid']
         return func(**form)
 
     return wrapper
+
 
 if __name__ == '__main__':
     config_log()
