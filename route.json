@@ -19,8 +19,10 @@
       "/wechat/mark/mark":"controller.wechat.wechat_mark",
       "/wechat/mark/search":"controller.wechat.wechat_mark_search",
       "/wechat/user/login":"controller.wechat.wechat_login",
-      "/wechat/user/detail":"controller.wechat.wechat_user_info"
+      "/wechat/user/detail":"controller.wechat.wechat_user_info",
 
+      "/short.json":"controller.short_link.short_link",
+      "/link_page":"controller.short_link.link_page"
     }
 
 }

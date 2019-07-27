@@ -10,7 +10,7 @@
 
   "db":{
     "creator":"pymysql",
-    "host":"127.0.0.1",
+    "host":"192.168.31.23",
     "port":"3306",
     "password":"123456",
     "username":"root",
@@ -22,7 +22,7 @@
     "logLevel": "INFO",
     "logName" : "vtarget",
     "logPath" : "./",
-    "port": 8001
+    "port": 8002
   },
 
   "wechat":{

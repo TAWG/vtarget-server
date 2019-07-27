@@ -23,7 +23,7 @@ class DictService(BaseService):
             tmp = dict()
             tmp['type'] = row[2]
             tmp['name'] = row[1]
-            tmp['image'] = row[4]
+            #tmp['image'] = row[4]
             res.append(tmp)
         return res
 
