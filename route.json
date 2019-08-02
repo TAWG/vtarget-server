@@ -22,7 +22,9 @@
       "/wechat/user/detail":"controller.wechat.wechat_user_info",
 
       "/short.json":"controller.short_link.short_link",
-      "/link_page":"controller.short_link.link_page"
+      "/link_page":"controller.short_link.link_page",
+      "/short_custom.json":"controller.short_link.short_link_custom",
+      "/link_custom_page":"controller.short_link.link_custom_page"
     }
 
 }

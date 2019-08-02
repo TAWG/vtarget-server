@@ -32,3 +32,15 @@ def str_sign(src, sign='BjfCmLc'):
     cur_md5 = hashlib.md5()
     cur_md5.update(('%s%s' % (src, sign)).encode("utf-8"))
     return cur_md5.hexdigest()
+
+
+def build_sign(base_url):
+    """
+    数据md5加密
+    :param base_url:
+    :return:
+    """
+    s = "%s_%s_%s"%(base_url,'demo','test')
+    m = hashlib.md5()
+    m.update(s.encode("utf-8"))
+    return m.hexdigest()

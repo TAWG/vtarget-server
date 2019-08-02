@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>短连接转换</title>
+</head>
+<body>
+<form class="form-horizontal" action="/short_custom.json" method="get">
+						<div class="control-group">
+							<label class="control-label" for="base_url">原始连接</label>
+							<div class="controls">
+								<input id="base_url" type="text" name="base_url" value="{{base_url}}"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="mid_url">中间连接</label>
+							<div class="controls">
+								<input id="mid_url" type="text" name="mid_url" value="{{mid_url}}"/>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="short_url">生成连接</label>
+							<div class="controls">
+								<input id="short_url" type="text" readonly= "true " name="short_url" value="{{short_url}}"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+                                <button class="btn" type="submit">转换</button>
+							</div>
+						</div>
+					</form>
+</body>
+</html>
